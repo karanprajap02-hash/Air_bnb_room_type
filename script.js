@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
-  const API_URL = "https://air-bnb-room-type.onrender.com";
+const API_URL = "https://air-bnb-room-type.onrender.com/predict";
 
   const form = document.getElementById("prediction-form");
   const submitBtn = document.getElementById("submit-btn");
-  const errorMsg = document.getElementById("error-message");
+  const errorMsg = document.getElementById("error-message");git 
   
   const resultSection = document.getElementById("result-section");
   const resultOutput = document.getElementById("result-output");

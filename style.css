@@ -132,18 +132,18 @@ body {
   pointer-events: none;
 }
 
-/* Glowing Background Orb */
+/* Enhanced, Highly Visible Glowing Background Orb/House */
 .house-glow-bg {
   position: absolute;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(217, 4, 41, 0.15), transparent);
-  box-shadow: 0 0 80px var(--accent-red-glow), inset 0 0 80px rgba(217, 4, 41, 0.1);
+  width: 480px; /* Increased size */
+  height: 480px;
+  fill: var(--accent-red);
+  /* Layered drop-shadows for a massive, vibrant glow */
+  filter: drop-shadow(0 0 120px var(--accent-red-glow)) drop-shadow(0 0 40px rgba(217, 4, 41, 0.6));
   z-index: 1;
+  opacity: 0.95; /* Increased opacity for maximum visibility */
   pointer-events: none;
 }
-
 /* Hero text */
 .hero-text-container {
   position: relative;
@@ -516,35 +516,51 @@ body {
 }
 
 /* =========================================================
-   FOOTER
+   FOOTER (With Spread Red Bottom Glow)
 ========================================================= */
 .footer {
   position: relative;
-  border-top: 2px solid var(--accent-red);
+  border-top: 1px solid var(--border-dark);
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
   color: #666666;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 3px;
-  background: linear-gradient(to bottom, rgba(217, 4, 41, 0.05), transparent 60%);
-  box-shadow: 0 -10px 30px rgba(217, 4, 41, 0.05);
+  
+  /* Creates the wide, spreading red glow from the bottom center */
+  background: radial-gradient(ellipse at bottom, rgba(217, 4, 41, 0.25) 0%, transparent 70%);
+  overflow: hidden;
 }
 
-/* Bright red glowing accent line in the center */
+/* The bright red accent line on the top border */
 .footer::before {
   content: "";
   position: absolute;
-  top: -2px;
+  top: -1px;
   left: 50%;
   transform: translateX(-50%);
-  width: 150px;
+  width: 250px;
   height: 2px;
   background-color: #ff2a3a;
-  box-shadow: 0 0 20px var(--accent-red);
+  box-shadow: 0 0 25px 2px var(--accent-red);
+}
+
+/* Adds a secondary linear ambient spread specifically locked to the bottom edge */
+.footer::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to top, rgba(217, 4, 41, 0.15), transparent);
+  pointer-events: none;
 }
 
 .footer p {
+  position: relative;
+  z-index: 2;
   opacity: 0.8;
   transition: opacity 0.3s;
 }
@@ -553,6 +569,7 @@ body {
   opacity: 1;
   color: var(--text-light);
 }
+
 /* =========================================================
    RESPONSIVE - TABLET
 ========================================================= */
