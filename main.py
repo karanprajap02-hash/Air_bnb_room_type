@@ -7,7 +7,7 @@ from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
 
 # 1. Load the model
-model = joblib.load('xgboost_model_room_type21.pkl')
+model = joblib.load('xgboost_model_room_type22.pkl')
 
 import sklearn.compose._column_transformer
 

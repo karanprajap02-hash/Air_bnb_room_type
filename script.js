@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
   // Make sure this is your EXACT Render backend URL + /predict
-  const API_URL = "https://air-bnb-room-type.onrender.com/predict";
+  const API_URL = "https://air-bnb-room-type.onrender.com";
 
   // 1. Get all elements
   const form = document.getElementById("prediction-form");
