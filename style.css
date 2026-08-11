@@ -132,18 +132,17 @@ body {
   pointer-events: none;
 }
 
-/* Enhanced, Highly Visible Glowing Background Orb/House */
 .house-glow-bg {
   position: absolute;
-  width: 480px; /* Increased size */
+  width: 480px;
   height: 480px;
   fill: var(--accent-red);
-  /* Layered drop-shadows for a massive, vibrant glow */
   filter: drop-shadow(0 0 120px var(--accent-red-glow)) drop-shadow(0 0 40px rgba(217, 4, 41, 0.6));
   z-index: 1;
-  opacity: 0.95; /* Increased opacity for maximum visibility */
+  opacity: 0.95; 
   pointer-events: none;
 }
+
 /* Hero text */
 .hero-text-container {
   position: relative;
