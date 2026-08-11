@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Type Prediction</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       NAVBAR
+  ====================================================== -->
+  <nav class="navbar">
+    <div class="logo">ROOM PREDICT</div>
+    <a href="#prediction-section" class="btn-outline">PREDICT</a>
+  </nav>
+  
+<!-- =====================================================
+       HERO
+  ====================================================== -->
+  <section class="hero">
+    <!-- Solid Up-Arrow/House Shape -->
+    <svg class="house-glow-bg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2 L22 12 H17 V22 H7 V12 H2 Z" />
+    </svg>
+
+    <div class="hero-text-container">
+      <h1 class="solid-text">ROOM</h1>
+      <h1 class="outline-text">PREDICTION</h1>
+      <p class="hero-subtitle">XGBOOST LISTING CLASSIFICATION</p>
+    </div>
+  </section>
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+  <main class="container">
+    <section class="content-section" id="prediction-section">
+      <h2 class="section-heading">ENTER LISTING DETAILS</h2>
+
+      <!-- =================================================
+           FORM
+      ================================================== -->
+      <form id="prediction-form" onsubmit="event.preventDefault();" novalidate>
+
+        <!-- 1. NEIGHBOURHOOD GROUP -->
+        <div class="input-section">
+          <label class="section-label">1. NEIGHBOURHOOD GROUP</label>
+          <div class="button-grid">
+            <input type="radio" name="neighbourhood_group" id="ng_manhattan" value="Manhattan" checked>
+            <label for="ng_manhattan" class="feature-btn">MANHATTAN</label>
+
+            <input type="radio" name="neighbourhood_group" id="ng_brooklyn" value="Brooklyn">
+            <label for="ng_brooklyn" class="feature-btn">BROOKLYN</label>
+
+            <input type="radio" name="neighbourhood_group" id="ng_queens" value="Queens">
+            <label for="ng_queens" class="feature-btn">QUEENS</label>
+
+            <input type="radio" name="neighbourhood_group" id="ng_bronx" value="Bronx">
+            <label for="ng_bronx" class="feature-btn">BRONX</label>
+
+            <input type="radio" name="neighbourhood_group" id="ng_staten" value="Staten Island">
+            <label for="ng_staten" class="feature-btn">STATEN IS.</label>
+          </div>
+        </div>
+
+        <!-- 2. LOCATION -->
+        <div class="input-section">
+          <label class="section-label">2. EXACT LOCATION</label>
+          <div class="type-box-grid">
+            <div class="type-box">
+              <label for="neighbourhood">NEIGHBOURHOOD</label>
+              <input type="text" id="neighbourhood" name="neighbourhood" placeholder="e.g. Midtown" autocomplete="off" required>
+            </div>
+            <div class="type-box">
+              <label for="latitude">LATITUDE (-90 TO 90)</label>
+              <input type="number" step="any" id="latitude" name="latitude" placeholder="40.7536" min="-90" max="90" required>
+            </div>
+            <div class="type-box">
+              <label for="longitude">LONGITUDE (-180 TO 180)</label>
+              <input type="number" step="any" id="longitude" name="longitude" placeholder="-73.9832" min="-180" max="180" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. PRICING & LISTING RULES -->
+        <div class="input-section">
+          <label class="section-label">3. LISTING RULES &amp; PRICING</label>
+          <div class="type-box-grid">
+            <div class="type-box">
+              <label for="price">PRICE PER NIGHT ($)</label>
+              <input type="number" step="any" id="price" name="price" placeholder="150" min="0.01" required>
+            </div>
+            <div class="type-box">
+              <label for="minimum_nights">MINIMUM NIGHTS (1-365)</label>
+              <input type="number" id="minimum_nights" name="minimum_nights" placeholder="3" min="1" max="365" required>
+            </div>
+          </div>
+
+          <!-- Availability Slider -->
+          <div class="slider-box">
+            <div class="slider-label-row">
+              <label for="availability_365">AVAILABILITY (DAYS PER YEAR)</label>
+              <span id="avail-val" class="accent-red">180</span>
+            </div>
+            <input type="range" id="availability_365" name="availability_365" min="0" max="365" value="180" class="custom-slider">
+            <div class="slider-range">
+              <span>0 DAYS</span>
+              <span>365 DAYS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. HOST & REVIEWS -->
+        <div class="input-section">
+          <label class="section-label">4. HOST &amp; REVIEWS</label>
+          <div class="type-box-grid">
+            <div class="type-box">
+              <label for="calculated_host_listings_count">HOST LISTING COUNT</label>
+              <input type="number" id="calculated_host_listings_count" name="calculated_host_listings_count" placeholder="1" min="0" required>
+            </div>
+            <div class="type-box">
+              <label for="number_of_reviews">TOTAL REVIEWS</label>
+              <input type="number" id="number_of_reviews" name="number_of_reviews" placeholder="45" min="0" required>
+            </div>
+            <div class="type-box">
+              <label for="reviews_per_month">REVIEWS PER MONTH</label>
+              <input type="number" step="any" id="reviews_per_month" name="reviews_per_month" placeholder="1.5" min="0">
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="btn-container">
+          <button type="submit" class="btn-solid" id="submit-btn">PREDICT ROOM TYPE</button>
+        </div>
+
+        <!-- Error -->
+        <div id="error-message" class="error-text" role="alert"></div>
+      </form>
+    </section>
+
+    <!-- =================================================
+         RESULT
+    ================================================== -->
+    <section class="content-section result-section" id="result-section" style="display: none;">
+      <h2 class="section-heading">PREDICTION RESULT</h2>
+      <div class="result-display">
+        <p class="result-label">PREDICTED ROOM TYPE</p>
+        <h3 class="solid-text-large" id="result-output">PRIVATE ROOM</h3>
+        <div id="probability-container" class="probability-container">
+          <p class="red-subtext" id="prob-output">PROBABILITY: --</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+  <footer class="footer">
+    <p>ROOM PREDICT &mdash; MACHINE LEARNING PROJECT</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
